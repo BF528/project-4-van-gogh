@@ -21,4 +21,6 @@ Baron, Maayan, Adrian Veres, Samuel L. Wolock, Aubrey L. Faust, Renaud Gaujoux, 
 ## Data Curator
 ### Data_Curator/barcodes.qsub
 * Execution: `qsub barcodes.qsub`
-* Output: `count.txt` which contains the number of reads per distinct barcode in samples SRR3879604, SRR3879605, and SRR3879606
+* Description: Extracts barcodes from each run, and counts the	number of reads per distinct barcode.	For each run, it plots the cumulative distribution and histogram using `Data_Curator/plots.R`, and runs umi-tools to confirm inflection point and retrieve white-list
+* Input: paths to runs SRR3879604, SRR3879605, and SRR3879606
+* Output: `[run]_counts.txt` (number of reads per distinct barcode) , images of CDF and histogram, UMI-tools knee output 
