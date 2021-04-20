@@ -1,6 +1,6 @@
 ###################################################################
-# Data Curator: Elysha Sameth					                            #    
-#	                                                  						  #
+# Data Curator: Elysha Sameth					                #    
+#	                                                  		 #
 # Plot the cumulative distribution and histogram.                 #
 # Run using: R --vanilla --args run_id counts_file < plot.R       #
 ###################################################################
