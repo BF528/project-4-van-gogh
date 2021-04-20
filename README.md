@@ -19,6 +19,4 @@ Baron, Maayan, Adrian Veres, Samuel L. Wolock, Aubrey L. Faust, Renaud Gaujoux, 
 
 # Repository Contents
 ## Data Curator
-### Data_Curator/barcodes.qsub
-* Execution: `qsub barcodes.qsub`
-* Output: `count.txt` which contains the number of reads per distinct barcode in samples SRR3879604, SRR3879605, and SRR3879606
+Processes the sequencing libraries of the 51 year old female donor into UMI counts matrices. This was done by whitelisting informative barcodes by eliminating reads with infrequent barcodes from consideration via `UMI-tools`. This list was then used to generate the UMI matrix using `salmon alevin` and the output statistics was analyzed.

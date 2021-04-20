@@ -1,0 +1,21 @@
+#!/bin/bash -l
+
+#$ -P bf528
+#$ -cwd
+#$ -j y
+#$ -pe mpi_16_tasks_per_node 16
+
+##################################################################
+# Data Curator: Elysha Sameth					 #    
+#								 #
+# Transcript to gene map file of each transcript present in the  #
+# reference to the corresponding gene. This file was downloaded  #
+# from the current human reference (GRCh38.p13) comprehensive    #
+# gene annotation from Gencode					 #
+##################################################################
+
+echo "Running job $JOB_ID"
+echo "Started: $(date +%F)"
+echo "Running in directory: $PWD"
+
+grep ">" /projectnb/bf528/users/van-gogh/project_4/data/gencode.v37.transcripts.fa | awk -F'|' '{print $1"\t"$2}' | cut -c 2- > txp2gene.tsv

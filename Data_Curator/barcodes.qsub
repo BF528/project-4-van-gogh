@@ -36,8 +36,8 @@ for run in "${SRR[@]}"; do
 	R --vanilla --args $run "$run"_counts.txt < plot.R 
 
 	# Run umi-tools
-	umi_tools whitelist --knee-method=density --plot-prefix=plots_density \
-	--extract-method=regex --bc-pattern='(?P<cell_1>.{19})(?P<umi_1>.{6})' \
-	--method=reads --allow-threshold-error \
+	umi_tools whitelist --plot-prefix="$run"_plots \
+	--extract-method=regex --bc-pattern='(?P<cell_1>.{19})(?P<umi_1>.{6})$' \
+	--method=reads --error-correct-threshold=0 \
 	--stdin $samples/$run/"$run"_1_bc.fastq.gz --log2stderr > "$run"_whitelist.txt
 done
