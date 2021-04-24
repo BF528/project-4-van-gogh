@@ -10,8 +10,7 @@
 #								 #
 # Extract barcodes from each run, and count the	number of reads  #
 # per distinct barcode.	For each run, plot the cumulative 	 #
-# distribution and histogram, and run umi-tools to confirm 	 #
-# inflection point and retrieve white-list			 #
+# distribution and retrieve whitelist			         #
 ##################################################################
 
 echo "Running job $JOB_ID"
@@ -24,20 +23,14 @@ module load python3/3.6.5
 module load umitools/1.0.0
 
 samples=/projectnb/bf528/project_4_scrnaseq/fastq
-SRR=("SRR3879604" "SRR3879605" "SRR3879606")
 
 # Read each run and extract barcode
-for run in "${SRR[@]}"; do
-	zcat $samples/$run/"$run"_1_bc.fastq.gz | 
-	awk '{if(NR%4==2){print substr($1,1,19)}}' |
-	sort | uniq -c > "$run"_counts.txt
+# Read each run and extract barcode
+zcat $samples/SRR3879604/SRR3879604_1_bc.fastq.gz \
+$samples/SRR3879605/SRR3879605_1_bc.fastq.gz \
+$samples/SRR3879606/SRR3879606_1_bc.fastq.gz > SRRX_1_bc.fastq
 
-	# Plot the CDF and histogram
-	R --vanilla --args $run "$run"_counts.txt < plot.R 
+awk '{if(NR%4==2){print substr($1,1,19)}}' SRRX_1_bc.fastq | sort | uniq -c > merged_counts.txt
 
-	# Run umi-tools
-	umi_tools whitelist --plot-prefix="$run"_plots \
-	--extract-method=regex --bc-pattern='(?P<cell_1>.{19})(?P<umi_1>.{6})$' \
-	--method=reads --error-correct-threshold=0 \
-	--stdin $samples/$run/"$run"_1_bc.fastq.gz --log2stderr > "$run"_whitelist.txt
-done
+# Plot the CDF 
+R --vanilla --args merged_counts.txt < plot.R 
