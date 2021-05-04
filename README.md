@@ -26,3 +26,9 @@ Processes the sequencing libraries of the 51 year old female donor into UMI coun
 * Dependencies: R
 * Inputs: quants_mat.gz
 * Outputs: .rda file
+
+## Analyst
+### RScript_Analyst.R
+* Dependencies: R
+* Inputs: .rda file
+* Outputs: UMAP clustered image, Violin Plot, .csv of differentially expressed genes.
